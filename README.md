@@ -140,4 +140,4 @@ MIT © **TechLevelZero** Made with the sounds of **Sleep Token** and **Bea and h
 
 ## 📸 Demo
 
-[View HTML Demo](TrailToast/demo.html)
+[View HTML Demo](https://techlevelzero.github.io/TrailToast/demo.html)
