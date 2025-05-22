@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TrailToast Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f0f2f5;
+    }
+    button {
+      margin: 10px;
+      padding: 12px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .default { border: 2px solid #424242; color: #000; }
+    .success { background: #4CAF50; color: white; }
+    .error { background: #f44336; color: white; }
+    .info { background: #2196F3; color: white; }
+    .custom { background: #9C27B0; color: white; }
+    .simulate { background: #607d8b; color: white; }
+    .dark { background: #424242; color: white; }
+    .list { background: #00b894; color: white; }
+  </style>
+</head>
+<body>
+
+  <h1>TrailToast Demo</h1>
+
+  <button class="default" onclick="toast.show('default toast')">Show Success Toast</button>
+
+  <button class="success" onclick="toast.show('Operation successful!', {
+    theme: 'success'
+  })">Show Success Toast</button>
+
+  <button class="error" onclick="toast.show('Something went wrong!', { 
+    theme: 'error'
+  })">Show Error Toast</button>
+
+  <button class="info" onclick="toast.show('This is some information.', { 
+    theme: 'info' 
+  })">Show Info Toast</button>
+
+  <button class="dark" onclick="toast.show('This is a dark toast.', { 
+    theme: 'dark' 
+  })">Show Dark Toast</button>
+
+  <button class="custom" onclick="toast.show('Custom styled toast!', {
+    backgroundColor: '#9C27B0',
+    textColor: 'white',
+    borderColor: '#ffccbc'
+  })">TrailToast Custom Toast</button>
+
+  <button class="info" onclick="toast.show('This toast fades out after 10 seconds.', {
+    theme: 'info',
+    fadeDelay: 10000
+  })">Long Fade Toast</button>
+  
+  <button class="list" onclick="toast.show('This one moves instantly to the corner.', {
+    backgroundColor: '#00b894',
+    textColor: '#fff',
+    spawnAtCursor: false,
+  })">Load in list</button>
+  
+
+  <button class="simulate" onclick="simulateServerCall()">Simulate Server Response</button>
+  <script src="C:\Users\TechLevelZero\Documents\toste\trailtoast.js"></script>
+  <script>
+
+    const toast = new TrailToast();
+
+    function simulateServerCall() {
+      toast.show('Contacting server...', { theme: 'info', fadeDelay: 2000 });
+
+      setTimeout(() => {
+        const success = Math.random() > 0.5;
+        if (success) {
+          toast.show('Simulaion data loaded successfully!', { theme: 'success', spawnAtCursor: false });
+        } else {
+          toast.show('Failed to load simulaion data. Please try again.', { theme: 'error', spawnAtCursor: false });
+        }
+      }, 2000); // simulate 2s server response
+    }
+  </script>
+
+  <script>
+    // Auto-show a welcome toast on page load
+    window.addEventListener('load', () => {
+      toast.show('Welcome to the demo!', { theme: 'default' });
+    });
+    window.addEventListener('resize', () => {
+      this.repositionRemainingToasts();
+    });
+  </script>
+</body>
+</html>
