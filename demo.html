@@ -26,76 +26,275 @@
     .simulate { background: #607d8b; color: white; }
     .dark { background: #424242; color: white; }
     .list { background: #00b894; color: white; }
+
+    .demo-section {
+      margin: 30px 0;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .demo-section h3 {
+      margin-top: 0;
+      color: #333;
+    }
+
+    pre {
+      background: #f8f9fa;
+      padding: 8px;
+      border-radius: 6px;
+      border-left: 4px solid #007bff;
+      margin: 10px 0;
+      overflow-x: auto;
+      font-size: 14px;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      color: #d63384;
+    }
+
+    .button-container {
+      margin-bottom: 15px;
+    }
+
+    #direction-toggle {
+      display: inline-block;
+      margin-left: 10px;
+      padding: 7px 8px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 6px;
+      background-color: #fff;
+      color: #333;
+    }
   </style>
 </head>
 <body>
 
-  <h1>TrailToast Demo</h1>
+  <div class="demo-section">
+    <h1>TrailToast - A Modern Toast Notification Library</h1>
+    <p>TrailToast is a lightweight, customizable toast notification library that allows you to display messages in a stylish and user-friendly way.</p>
+    <p>Click the buttons below to see different types of toasts in action!</p>
+  </div>
 
-  <button class="default" onclick="toast.show('default toast')">Show Success Toast</button>
+  <div class="demo-section">
+    <h3>Toast Option defaults</h3>
+    <pre><code>
+        const toast = new TrailToast({
+          moveDelay: 1000,                           // Time before moving to top-right (ms)
+          fadeDelay: 5000,                           // Time before fading out (ms)
+          fadeOutDuration: 500,                      // Fade out animation duration (ms)
+          toastHeight: 60,                           // Height of each toast (px)
+          toastWidth: 220,                           // Width of each toast (px)
+          topOffset: 20,                             // Distance from top of screen (px)
+          rightOffset: 20,                           // Distance from right of screen (px)
+          padding: '16px 24px',                      // Default padding
+          borderRadius: '12px',                      // Default border-radius
+          spawnAtCursor: true,                       // Spawn at cursor position
+          backgroundColor: '#fff',                   // Default background color
+          textColor: '#333',                         // Default text color
+          showProgress: true,                        // Show progress bar
+          progressHeight: 3,                         // Progress bar height (px)
+          progressColor: 'rgba(255, 255, 255, 0.8)', // Progress bar color
+          stackDirection: 'vertical',                // 'vertical' or 'horizontal' can only be set on initialisation
+          pauseOnHover: true,                        // Pause progress bar on hover
+        });
+    </code></pre>
+  </div>
 
-  <button class="success" onclick="toast.show('Operation successful!', {
-    theme: 'success'
-  })">Show Success Toast</button>
+  <div class="demo-section">
+    <h3>Toast Stack Direction</h3>
+    <label for="direction-toggle">Select Stack Direction:</label>
+    <select id="direction-toggle">
+      <option value="vertical">Vertical</option>
+      <option value="horizontal" selected>Horizontal</option>
+    </select>
+  </div>
 
-  <button class="error" onclick="toast.show('Something went wrong!', { 
-    theme: 'error'
-  })">Show Error Toast</button>
+  <div class="demo-section">
+    <h3>Default Toast</h3>
+    <div class="button-container">
+      <button class="default" onclick="toast.show('default toast')">Show Default Toast</button>
+    </div>
+    <pre><code>toast.show('default toast')</code></pre>
+  </div>
 
-  <button class="info" onclick="toast.show('This is some information.', { 
-    theme: 'info' 
-  })">Show Info Toast</button>
+  <div class="demo-section">
+    <h3>Theme's Toast</h3>
+    <div class="button-container">
+      <button class="success" onclick="toast.show('Operation successful!', {
+        theme: 'success'
+      })">Show Success Toast</button>
+      <button class="error" onclick="toast.show('Something went wrong!', { 
+        theme: 'error'
+      })">Show Error Toast</button>
+      <button class="info" onclick="toast.show('This is some information.', { 
+        theme: 'info' 
+      })">Show Info Toast</button>
+      <button class="dark" onclick="toast.show('This is a dark toast.', { 
+        theme: 'dark',
+        closeButton: true,
+      })">Show Dark Toast</button>
+    </div>
+    <pre><code>
+      toast.show('Operation successful!', {
+        theme: 'success' | 'error' | 'info' | 'dark'
+      })
+    </code></pre>
+  </div>
 
-  <button class="dark" onclick="toast.show('This is a dark toast.', { 
-    theme: 'dark' 
-  })">Show Dark Toast</button>
+  <div class="demo-section">
+    <h3>Stays in Place Toast</h3>
+    <div class="button-container">
+      <button class="info" onclick="toast.show('Copied!', { 
+        theme: 'success',
+        fadeDelay: 1000,
+        moveDelay: 2000,
+      })">Stays in Place Toast</button>
+    </div>
+    <pre><code>
+      toast.show('Copied!', { 
+        theme: 'success',
+        // Making the moveDelay longer than the fadeDelay 
+        // the toast will stay in place and not trail over to the stack.
+        fadeDelay: 1500,
+        moveDelay: 2500,
+      })
+    </code></pre>
+  </div>
 
-  <button class="custom" onclick="toast.show('Custom styled toast!', {
-    backgroundColor: '#9C27B0',
-    textColor: 'white',
-    borderColor: '#ffccbc'
-  })">TrailToast Custom Toast</button>
+  <div class="demo-section">
+    <h3>Custom Styled Toast</h3>
+    <div class="button-container">
+      <button class="custom" onclick="toast.show('Custom styled toast!', {
+        backgroundColor: '#9C27B0',
+        textColor: 'white',
+        borderColor: '#ffccbc',
+        moveDelay: 500,
+        borderRadius: '3px',
+        padding: '8px 12px',
+      })">TrailToast Custom Toast</button>
+    </div>
+    <pre><code>
+      toast.show('Custom styled toast!', {
+        backgroundColor: '#9C27B0',
+        textColor: 'white',
+        borderColor: '#ffccbc'
+      })
+    </code></pre>
+  </div>
 
-  <button class="info" onclick="toast.show('This toast fades out after 10 seconds.', {
-    theme: 'info',
-    fadeDelay: 10000
-  })">Long Fade Toast</button>
+  <div class="demo-section">
+    <h3>Long Fade Toast</h3>
+    <div class="button-container">
+      <button class="info" onclick="toast.show('This toast fades out after 10 seconds.', {
+        theme: 'info',
+        fadeDelay: 10000
+      })">Long Fade Toast</button>
+    </div>
+    <pre><code>
+      toast.show('This toast fades out after 10 seconds.', {
+        theme: 'info',
+        fadeDelay: 10000
+      })
+    </code></pre>
+  </div>
   
-  <button class="list" onclick="toast.show('This one moves instantly to the corner.', {
-    backgroundColor: '#00b894',
-    textColor: '#fff',
-    spawnAtCursor: false,
-  })">Load in list</button>
-  
+  <div class="demo-section">
+    <h3>Load in List Toast</h3>
+    <div class="button-container">
+      <button class="list" onclick="toast.show('This one moves instantly to the corner.', {
+        backgroundColor: '#00b894',
+        textColor: '#fff',
+        spawnAtCursor: false,
+        pauseOnHover: true,
+      })">Load in List</button>
+    </div>
+    <pre><code>
+      toast.show('This one is sent instantly to the corner.', {
+        backgroundColor: '#00b894',
+        textColor: '#fff',
+        spawnAtCursor: false,
+      })
+    </code></pre>
+  </div>
 
-  <button class="simulate" onclick="simulateServerCall()">Simulate Server Response</button>
-  <script src="https://techlevelzero.github.io/TrailToast/trailtoast.js"></script>
+  <div class="demo-section">
+    <h3>Simulate Server Response</h3>
+    <div class="button-container">
+      <button class="simulate" onclick="simulateServerCall()">Simulate Server Response</button>
+    </div>
+    <pre><code>
+      function simulateServerCall() {
+        toast.show('Contacting server...', { theme: 'info', fadeDelay: 2000 });
+
+        setTimeout(() => {
+          const success = Math.random() > 0.5;
+          if (success) {
+            toast.show('Simulation data loaded successfully!', { 
+              theme: 'success', 
+              spawnAtCursor: false 
+            });
+          } else {
+            toast.show('Failed to load simulation data. Please try again.', { 
+              theme: 'error', 
+              spawnAtCursor: false 
+            });
+          }
+        }, 2000); // simulate 2s server response
+      }
+    </code></pre>
+  </div>
+
+  <script src="https://techlevelzero.github.io/TrailToast/trailtoast1.js"></script>
+  <script src="C:\Users\TechLevelZero\Documents\toste\trailtoast.js"></script>
   <script>
-
-    const toast = new TrailToast();
-
+    let toast;
+  
+    function initializeToast(direction = 'horizontal') {
+      toast = new TrailToast({
+        stackDirection: direction,
+        maxHorizontalToasts: 3,
+        toastWidth: 250
+      });
+    }
+  
+    // Initialize with default
+    initializeToast('horizontal');
+  
+    // Listen to toggle changes
+    document.getElementById('direction-toggle').addEventListener('change', (e) => {
+      const newDirection = e.target.value;
+  
+      // Optionally clear current toasts here if TrailToast doesn't auto-cleanup
+      // e.g., document.querySelectorAll('.trail-toast').forEach(el => el.remove());
+  
+      initializeToast(newDirection);
+    });
+  
     function simulateServerCall() {
-      toast.show('Contacting server...', { theme: 'info', fadeDelay: 2000 });
-
+      const toastElement = toast.show('Contacting server...', { theme: 'info', fadeDelay: 5000 });
+  
       setTimeout(() => {
         const success = Math.random() > 0.5;
         if (success) {
-          toast.show('Simulaion data loaded successfully!', { theme: 'success', spawnAtCursor: false });
+          toastElement.update('Simulation data loaded successfully!', { theme: 'success', spawnAtCursor: false });
         } else {
-          toast.show('Failed to load simulaion data. Please try again.', { theme: 'error', spawnAtCursor: false });
+          toastElement.update('Failed to load simulation data. Please try again.', { theme: 'error', spawnAtCursor: false, showProgress: true });
         }
-      }, 2000); // simulate 2s server response
+      }, 10000);
     }
-  </script>
-
-  <script>
-    // Auto-show a welcome toast on page load
+  
     window.addEventListener('load', () => {
       toast.show('Welcome to the demo!', { theme: 'default' });
     });
+  
     window.addEventListener('resize', () => {
-      this.repositionRemainingToasts();
+      this.repositionRemainingToasts?.();
     });
   </script>
+  
 </body>
 </html>
